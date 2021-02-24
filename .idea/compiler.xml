@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="health-common" />
+        <module name="health-mobile" />
+        <module name="health-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="health-common" target="1.8" />
+      <module name="health-management" target="1.8" />
+      <module name="health-mobile" target="1.8" />
+      <module name="health-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

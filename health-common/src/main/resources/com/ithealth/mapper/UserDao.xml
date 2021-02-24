@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ithealth.mapper.UserDao">
+    <!---->
+    <select id="queryUserByName" parameterType="string" resultType="com.ithealth.pojo.User">
+        SELECT * FROM t_user WHERE username = #{username}
+    </select>
+
+    <select id="addUser" parameterType="com.ithealth.pojo.User" resultType="integer">
+        INSERT INTO t_user(username,password) VALUES (#{user.username},#{user.password})
+    </select>
+    
+    
+    <resultMap id="getRole" type="com.ithealth.pojo.Role">
+
+    </resultMap>
+
+    <select id="queryUserPageUser" parameterType="java.lang.String" resultType="com.ithealth.pojo.User">
+        SELECT
+        u.username,
+
+        r.`name` AS roles,
+        p.`name` AS auth
+        FROM
+        t_user u,
+        t_user_role ur,
+        t_role r,
+        t_role_permission rp,
+        t_permission p
+        WHERE
+        u.id = ur.user_id
+        AND ur.role_id = r.id
+        AND r.id = rp.role_id
+        AND rp.permission_id = p.id
+        <if test="queryString != null">
+            AND u.username = #{queryString}
+        </if>
+    </select>
+</mapper>

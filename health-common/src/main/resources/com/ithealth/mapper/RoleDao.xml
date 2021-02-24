@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ithealth.mapper.RoleDao">
+    <!--根据用户id查询角色信息-->
+    <select id="queryRolesByUID" parameterType="int" resultType="com.ithealth.pojo.Role">
+    SELECT tr.* FROM t_role tr, t_user_role tur WHERE tr.id = tur.user_id AND  tur.user_id = #{id}
+    </select>
+
+    <select id="getMenusByUsername" parameterType="string" resultType="com.ithealth.pojo.Menu">
+        SELECT DISTINCT
+	      tm.*
+        FROM
+	      t_user,
+	      t_user_role,
+	      t_role_menu,
+	      t_menu tm
+        WHERE
+	      t_user.id = t_user_role.user_id
+	    AND t_user_role.role_id = t_role_menu.role_id
+	    AND t_role_menu.menu_id = tm.id
+	    AND tm.level = 1
+	    AND t_user.username = #{username}
+    </select>
+    <select id="getChildById" parameterType="integer" resultType="com.ithealth.pojo.Menu">
+        SELECT * FROM t_menu WHERE t_menu.parentMenuId = #{id}
+    </select>
+</mapper>
